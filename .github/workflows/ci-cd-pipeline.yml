@@ -2,9 +2,12 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - 'users/**'
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 env:
   DOTNET_VERSION: '7.0.x'
@@ -32,12 +35,38 @@ jobs:
       - name: Security Check (optional)
         run: dotnet format Sample.sln --verify-no-changes
 
-  deploy:
+  deploy-dev:
+    name: Deploy to Development
     needs: build-and-test
     runs-on: ubuntu-latest
+    if: github.ref_name == 'main' || startsWith(github.ref_name, 'users/')
     environment:
-      name: ${{ github.ref_name == 'main' && 'Production' || 'Development' }}
-      url: https://example.com
+      name: Development
+      url: https://dev.example.com
     steps:
-      - name: Echo Deployment
-        run: echo "Deploying to ${{ github.ref_name == 'main' && 'Production' || 'Development' }}"
+      - name: Deploy to Dev
+        run: echo "✅ Deploying to Development"
+
+  deploy-qa:
+    name: Deploy to QA
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    environment:
+      name: QA
+      url: https://qa.example.com
+    steps:
+      - name: Deploy to QA
+        run: echo "🚀 Deploying to QA"
+
+  deploy-prod:
+    name: Deploy to Production
+    needs: deploy-qa
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    environment:
+      name: Production
+      url: https://prod.example.com
+    steps:
+      - name: Deploy to Production
+        run: echo "🚀 Deploying to Production"
