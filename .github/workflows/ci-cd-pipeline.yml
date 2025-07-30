@@ -30,7 +30,7 @@ jobs:
         run: dotnet test ./SimpleWebApi.Tests/SimpleWebApi.Tests.csproj
 
       - name: Security Check (optional)
-        run: dotnet format --verify-no-changes
+        run: dotnet format Sample.sln --verify-no-changes
 
   deploy:
     needs: build-and-test
