@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore Sample.sln
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build Sample.sln --no-restore --configuration Release
 
       - name: Run Unit Tests
         run: ddotnet test ./SimpleWebApi.Tests/SimpleWebApi.Tests.csproj
