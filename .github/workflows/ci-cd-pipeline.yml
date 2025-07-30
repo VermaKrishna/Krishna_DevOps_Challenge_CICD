@@ -27,7 +27,7 @@ jobs:
         run: dotnet build Sample.sln --no-restore --configuration Release
 
       - name: Run Unit Tests
-        run: ddotnet test ./SimpleWebApi.Tests/SimpleWebApi.Tests.csproj
+        run: dotnet test ./SimpleWebApi.Tests/SimpleWebApi.Tests.csproj
 
       - name: Security Check (optional)
         run: dotnet format --verify-no-changes
