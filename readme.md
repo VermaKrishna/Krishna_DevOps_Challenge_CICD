@@ -4,7 +4,8 @@ This repo contains a minimal .NET 7 Web API project with a full GitHub Actions p
 
 #Branching Strategy:
 
-![alt text](image.png)
+<img width="371" height="220" alt="image" src="https://github.com/user-attachments/assets/1b563dc6-4608-465d-97b0-4344e3089354" />
+
 
 Details:
 1. Weekly we will create a release branch from the Main
